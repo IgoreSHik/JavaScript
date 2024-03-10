@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pl" style="background-color: rgba(0, 0, 0, 0.164);">
+
+<head>
+    <meta charset="utf-8">
+    <title>2B</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <header style="background-color: rgb(255, 255, 255);">
+        <h1>2B - Balyka Blog</h1>
+    </header>
+    <section style="background-color: rgb(255, 0, 0);">
+        <nav class="menu" style="background-color: crimson;">
+            <ul>
+                <li><a href="http://wi.pb.edu.pl/">Politechnika</a></li>
+                <li><a href="http://stopgame.ru/">Stopgame</a></li>
+                <li><a href="http://cez2.pb.edu.pl">CEZ2</a></li>
+                <li><a href="http://youtube.com/">Youtube</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <section>
+                <article>
+                    <input type="button" value="Zadanie 1 example"
+                        onclick="zad1(function sum(a, b) {return a+b}, [4, 5, 6], [10, 20, 30]);">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 1.1"
+                        onclick="zad1(function connect(a, b) { return ans = { x: a, y: b } }, [1, 2, 3], [7, 8, 9]);">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 2" onclick="zad2()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 3" onclick="zad3()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 4" onclick="zad4()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 5" onclick="zad5()">
+                </article>
+            </section>
+            <aside>
+                <p>Gry</p>
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1.bp.blogspot.com%2F-PoFDZlKs2qA%2FXVt1RJKCUFI%2FAAAAAAAAaxo%2FVhMBV8AuqZQXy5WrmM5cfzLnoYJCrnqQQCLcBGAs%2Fs2560%2F8k-assassins-creed-origins-x1-1080x1920.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmuropaketti.com%2Fwp-content%2Fuploads%2F2016%2F12%2Fdishonored2_arv_01.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp8332464.jpg&f=1&nofb=1">
+
+            </aside>
+        </div>
+    </section>
+    <p>Hello world!</p>
+    <script>
+        function zad1(todo, x, y) {
+            let ar = []
+            for (i = 0; i < x.length; i++) {
+                ar[i] = todo(x[i], y[i])
+            }
+            console.log(ar);
+        }
+        function zad2() {
+            let x = zakres(7, 3)
+            for (let i = 0; i < 10; i++) console.log(x())
+        }
+        function zakres(a, b) {
+            let x = a;
+            function give() {
+                if (x == NaN) return x
+                let ans = x
+                if (x == b) x = NaN
+                if (x > b) x--
+                if (x < b) x++
+                return ans
+            }
+            return give
+        }
+        function zad3() {
+            napis = "ala ma kota"
+            chars = Array.from(String(napis))
+            var ans = chars.reduce((slownik, element) => {
+                slownik[element] = (slownik[element] ?? 0) + 1
+                return slownik
+            }, {})
+
+            console.log(ans)
+        }
+        function zad4() {
+            let ar = [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100]
+            console.log(ar)
+            ar = ar.filter(function (_, i) { return i % 2 === 0 })
+            console.log(ar)
+            let max = Math.max(...ar)
+            let min = Math.min(...ar)
+            console.log(min)
+            console.log(max)
+            ar = ar.map(val => val = (val - min) / (max - min))
+            console.log(ar)
+        }
+        function zad5() {
+            let ar = []
+            ar.length = 10
+            for (let i = 0; i < ar.length; i++)
+                ar[i] = Math.ceil(Math.random() * 10)
+            console.log(ar)
+            ar.reduce(function par(a, b) { b % 2 == 0 ? b++ : b }, 0)
+            console.log(ar.reduce(function par(a, b) { return b % 2 == 0 ? a + 1 : a }, 0))
+            console.log(ar.reduce(function ilo(a, b) { return a*b }))
+        }
+    </script>
+    <footer style="background-color: blueviolet;">Balyka Ihar 107837</footer>
+</body>
+
+</html>
