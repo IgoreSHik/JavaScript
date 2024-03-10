@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl" style="background-color: rgba(0, 0, 0, 0.164);">
+
+<head>
+    <meta charset="utf-8">
+    <title>Projekt 1 Balyka</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <header style="background-color: rgb(255, 255, 255);">
+        <h1>Paragon</h1>
+    </header>
+    <section style="background-color: rgb(255, 255, 255);">
+        <div class="container">
+            <section id="main_section">
+                <table>
+                    <tbody id="tabela">
+                        <tr>
+                            <th>LP</th>
+                            <th>NAZWA</th>
+                            <th>ILOSC</th>
+                            <th>CENA</th>
+                            <th>SUMA</th>
+                        </tr>
+                        <tr id="1 element">
+                            <td>1</td>
+                            <td>Jablka</td>
+                            <td>1.5</td>
+                            <td>4.90 zl</td>
+                            <td>7.35 zl</td>
+                        </tr>
+                        <tr id="2 element">
+                            <td>2</td>
+                            <td>Bulka</td>
+                            <td>5</td>
+                            <td>0.49 zl</td>
+                            <td>2.45 zl</td>
+                        </tr>
+                    </tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>RAZEM</td>
+                        <td id=razem>9,80 zl</td>
+                    </tr>
+                    <tr>
+                        <td><input type=”text” id="nowy_id"></td>
+                        <td><input type=”text” id="nowa_nazwa"></td>
+                        <td><input type=”text” id="nowa_ilosc"></td>
+                        <td><input type=”text” id="nowa_cena"></td>
+                        <td><input type="button" value="Dodaj" onclick="Dodaj()"></td>
+                    </tr>
+                </table>
+                </article>
+                <article>
+                    <input type=”text” id="usun_id">
+                    <input type="button" value="Usun" onclick="Usun()">
+                </article>
+                <article>
+                    <input type=”text” id="who_id">
+                    <input type=”text” id="to_id">
+                    <input type="button" value="Przenies" onclick="Przenies()">
+                </article>
+                <article>
+                    <input type="button" value="Zapisz" onclick="Zapisz()">
+                    <input type="button" value="Odczytaj" onclick="Odczytaj()">
+                </article>
+            </section>
+        </div>
+    </section>
+    <script>
+        lista = document.getElementsByTagName("tr")
+        const out = document.getElementById("tabela")
+        const razem = document.getElementById("razem")
+        var suma = 9.80
+        function Dodaj() {
+            let tr
+            let tabela = []
+            if (nowy_id.value != '') {
+                tr = document.getElementById("" + nowy_id.value + " element")
+                if (tr == null) { return }
+                for (let i = 0; i < 4; i++)
+                    tr.removeChild(tr.firstElementChild)
+                let sum = tr.firstElementChild
+                minus = sum.innerHTML.slice(0, sum.innerHTML.length - 2)
+                suma -= minus
+                tr.removeChild(sum)
+                tabela[0] = nowy_id.value
+            } else {
+                tr = document.createElement("tr")
+                tr.id = lista.length - 2 + " element"
+                out.appendChild(tr)
+                tabela[0] = lista.length - 3
+            }
+            tabela[1] = nowa_nazwa.value
+            tabela[2] = nowa_ilosc.value
+            tabela[3] = nowa_cena.value + " zl"
+            tabela[4] = (nowa_ilosc.value * nowa_cena.value).toFixed(2) + " zl"
+            suma += nowa_ilosc.value * nowa_cena.value
+            for (let i = 0; i < tabela.length; ++i) {
+                let td = document.createElement("TD")
+                td.innerHTML = tabela[i]
+                tr.appendChild(td)
+            }
+            razem.innerHTML = suma.toFixed(2) + " zl"
+        }
+        function Usun() {
+            let tr = document.getElementById("" + usun_id.value + " element")
+            let sum = tr.lastElementChild
+            minus = sum.innerHTML.slice(0, sum.innerHTML.length - 2)
+            suma -= minus
+            razem.innerHTML = suma.toFixed(2) + " zl"
+            out.removeChild(tr)
+            Replace_id()
+        }
+        function Przenies() {
+            let tr = document.getElementById("" + who_id.value + " element")
+            let place = document.getElementById("" + to_id.value + " element")
+            if (who_id.value > to_id.value) place.before(tr);
+            if (who_id.value < to_id.value) place.after(tr);
+            Replace_id()
+        }
+        function Replace_id() {
+            let change = out.firstElementChild
+            for (let i = 0; i < lista.length - 3; i++) {
+                change = change.nextElementSibling
+                change.id = i + 1 + " element"
+                change.firstElementChild.innerHTML = i + 1
+            }
+        }
+        function Zapisz() {
+            localStorage.clear()
+            let data = ""
+            let next = out.firstElementChild
+            for (let i = 0; i < lista.length - 3; i++) {
+                next = next.nextElementSibling
+                let innerData = next.firstElementChild
+                for (let j = 0; j < 3; j++) {
+                    innerData = innerData.nextElementSibling
+                    let innerDataContent = innerData.innerHTML
+                    if (j==2) innerDataContent = innerDataContent.slice(0, innerDataContent.length - 3)
+                    data += innerDataContent + ";"
+                }
+            }
+            localStorage.setItem("allData", data)
+        }
+        function Odczytaj() {
+            suma = 0
+            let next = out.firstElementChild.nextElementSibling
+            let end = lista.length - 3
+            for (let i = 0; i < end; i++) {
+                next = out.firstElementChild.nextElementSibling
+                out.removeChild(next)
+            }
+            let ar = localStorage.allData.split(';')
+            for (let i = 0; i < ar.length/3-1; i++) {
+                nowa_nazwa.value = ar[i*3]
+                nowa_ilosc.value = ar[i*3+1]
+                nowa_cena.value = ar[i*3+2]
+                nowy_id.value = ""
+                Dodaj()
+            }
+            nowa_nazwa.value = ""
+            nowa_ilosc.value = ""
+            nowa_cena.value = ""
+            nowy_id.value = ""
+        }
+    </script>
+    <footer style="background-color: blueviolet;">Balyka Ihar 107837</footer>
+</body>
+
+</html>
