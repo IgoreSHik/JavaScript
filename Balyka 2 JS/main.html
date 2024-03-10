@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pl" style="background-color: rgb(240, 73, 204);">
+
+<head>
+    <meta charset="utf-8">
+    <title>2B</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <header style="background-color: rgb(255, 255, 255);">
+        <h1>2B - Balyka Blog</h1>
+    </header>
+    <section style="background-color: rgb(255, 0, 0);">
+        <nav class="menu" style="background-color: crimson;">
+            <ul>
+                <li><a href="http://wi.pb.edu.pl/">Politechnika</a></li>
+                <li><a href="http://stopgame.ru/">Stopgame</a></li>
+                <li><a href="http://cez2.pb.edu.pl">CEZ2</a></li>
+                <li><a href="http://youtube.com/">Youtube</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <section>
+                <article>
+                    <input type="button" value="Zadanie 1" onclick="zad1();">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 2" onclick="zad2();">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 3" onclick="zad3();">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 4" onclick="zad4();">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 5" onclick="zad5();">
+                </article>
+            </section>
+            <aside>
+                <p>Gry</p>
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1.bp.blogspot.com%2F-PoFDZlKs2qA%2FXVt1RJKCUFI%2FAAAAAAAAaxo%2FVhMBV8AuqZQXy5WrmM5cfzLnoYJCrnqQQCLcBGAs%2Fs2560%2F8k-assassins-creed-origins-x1-1080x1920.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmuropaketti.com%2Fwp-content%2Fuploads%2F2016%2F12%2Fdishonored2_arv_01.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp8332464.jpg&f=1&nofb=1">
+
+            </aside>
+        </div>
+    </section>
+    <p>Hello world!</p>
+    <script>
+        function zad1() {
+            console.log("ZADANIE 1 ZADANIE 1 ZADANIE 1 ZADANIE 1 ZADANIE 1")
+            for (let x = 1; x < 100; x++) {
+                let ans = ""
+                if (x % 2 == 0) ans = "Fiz"
+                if (x % 3 == 0) ans += "Buz"
+                if (ans == "") ans = x
+                console.log(ans)
+            }
+        }
+        function zad2() {
+            console.log("ZADANIE 2 ZADANIE 2 ZADANIE 2 ZADANIE 2 ZADANIE 2")
+            let x = prompt("Wpisz długość promienia koła");
+            console.log("Obwód = " + 2 * Math.PI * x)
+            console.log("Pole  = " + Math.PI * x * x)
+        }
+        function zad3() {
+            console.log("ZADANIE 3 ZADANIE 3 ZADANIE 3 ZADANIE 3 ZADANIE 3")
+            var ar = []
+            ar = zad3_1(ar); console.log(ar)
+            ar = zad3_2(ar); console.log(ar)
+            ar = zad3_3(ar); console.log(ar)
+            ar = zad3_4(ar);
+            ar = zad3_5(ar); console.log(ar)
+        }
+        function zad3_1(ar) {
+            let sum = 0
+            while (sum < 200) {
+                let next = Math.round(1 + Math.random() * 9)
+                sum += next
+                ar.push(next)
+            }
+            return (ar)
+        }
+        function zad3_2(ar) {
+            let min = ar[0]
+            let minIndex = 0
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i] < min) {
+                    min = ar[0]
+                    minIndex = i
+                }
+            }
+            ar.splice(minIndex, 1)
+            return (ar)
+        }
+        function zad3_3(ar) {
+            let max = ar[0]
+            let maxIndex = 0
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i] >= max) {
+                    max = ar[0]
+                    maxIndex = i
+                }
+            }
+            ar.splice(maxIndex, 1)
+            return (ar)
+        }
+        function zad3_4(ar) {
+            let count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            for (let i = 0; i < ar.length; i++) {
+                count[ar[i]]++
+            }
+            console.log(count)
+            return (ar)
+        }
+        function zad3_5(ar) {
+            ar = ar.concat(ar.splice(0, 10))
+            return (ar)
+        }
+        function zad4() {
+            console.log("ZADANIE 4 ZADANIE 4 ZADANIE 4 ZADANIE 4 ZADANIE 4")
+            let ar = ["Vladislav", "Anastasiya", "YAroslav", "Ekaterina", "Elizaveta"]
+            for (let i = 0; i < ar.length; i++) {
+                for (let j = 0; j < ar[i].length; j++) {
+                    if (ar[i][j] == 'a' || ar[i][j] == 'A') ar[i] = ar[i].slice(0, j) + '4' + ar[i].slice(j + 1)
+                    if (ar[i][j] == 'e' || ar[i][j] == 'E') ar[i] = ar[i].slice(0, j) + '3' + ar[i].slice(j + 1)
+                }
+                if (ar[i].length > 6) ar[i] = ar[i].slice(0, 3) + "..." + ar[i].slice(-3);
+            }
+            console.log(ar)
+        }
+        function zad5() {
+            console.log("ZADANIE 5 ZADANIE 5 ZADANIE 5 ZADANIE 5 ZADANIE 5")
+            let s = "jajka, mleko, masło, chleb, śmietana, ciasteczka, herbata, cukier, ziemniak, kartoshka, bul'ba, potato"
+            let x = s.split(', ')
+            let tab = []
+            for (let i = 0; i < x.length; i++) {
+                tab[i] = {}
+                tab[i].nazwa = x[i]
+                tab[i].cena = Math.round(Math.random() * 10000) / 100
+            }
+            console.log(tab)
+            let lista = []
+            let losoweLiczby = []
+            for (let i = 0; i < x.length / 2; i++) losoweLiczby.push(Math.round(Math.random() * (x.length - 1)));
+            losoweLiczby.sort()
+            {
+                let i = 0;
+                while (i < losoweLiczby.length) {
+                    if (losoweLiczby[i] == losoweLiczby[i + 1]) losoweLiczby.splice(i, 1)
+                    else i++
+                }
+            }
+            let suma = 0
+            for (let i = 0; i < losoweLiczby.length; i++)
+            {
+                lista[i]=tab[losoweLiczby[i]];
+                lista[i].ilosc = Math.round(Math.random()*10)
+                suma+=lista[i].cena*lista[i].ilosc
+            }
+            console.log(lista)
+            console.log(suma)
+        }
+    </script>
+    <footer style="background-color: blueviolet;">Balyka Ihar 107837</footer>
+</body>
+
+</html>
