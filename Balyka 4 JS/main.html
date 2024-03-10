@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pl" style="background-color: rgba(0, 0, 0, 0.164);">
+
+<head>
+    <meta charset="utf-8">
+    <title>2B</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <header style="background-color: rgb(255, 255, 255);">
+        <h1>2B - Balyka Blog</h1>
+    </header>
+    <section style="background-color: rgb(255, 0, 0);">
+        <nav class="menu" style="background-color: crimson;">
+            <ul>
+                <li><a href="http://wi.pb.edu.pl/">Politechnika</a></li>
+                <li><a href="http://stopgame.ru/">Stopgame</a></li>
+                <li><a href="http://cez2.pb.edu.pl">CEZ2</a></li>
+                <li><a href="http://youtube.com/">Youtube</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <section>
+                <article>
+                    <input type="button" value="Zadanie 1 example"
+                        onclick="zad1(function sum(a, b) {return a+b}, [4, 5, 6], [10, 20, 30]);">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 1.1"
+                        onclick="zad1(function connect(a, b) { return ans = { x: a, y: b } }, [1, 2, 3], [7, 8, 9]);">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 2" onclick="zad2()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 3" onclick="zad3()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 4" onclick="zad4()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 5" onclick="zad5()">
+                </article>
+            </section>
+            <aside>
+                <p>Gry</p>
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1.bp.blogspot.com%2F-PoFDZlKs2qA%2FXVt1RJKCUFI%2FAAAAAAAAaxo%2FVhMBV8AuqZQXy5WrmM5cfzLnoYJCrnqQQCLcBGAs%2Fs2560%2F8k-assassins-creed-origins-x1-1080x1920.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmuropaketti.com%2Fwp-content%2Fuploads%2F2016%2F12%2Fdishonored2_arv_01.jpg&f=1&nofb=1">
+                <img
+                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp8332464.jpg&f=1&nofb=1">
+
+            </aside>
+        </div>
+    </section>
+    <p>Hello world!</p>
+    <script>
+        var cenaEnergii = 1
+
+        class Produkt {
+            id
+            nazwa
+            model
+            rok_produkcji
+            cena
+            zuzycieEnergii
+            koszt() { return this.cena }
+            kosztEnergii() { return this.zuzycieEnergii * cenaEnergii }
+            wiekProduktu() {
+                let Wiek = new Date()
+                Wiek.setFullYear(Wiek.getFullYear() - this.rok_produkcji)
+                return Wiek
+            }
+            wiekProduktuLata() { return this.wiekProduktu().getFullYear() }
+            constructor(id, nazwa, model, rok_produkcji, cena, zuzycieEnergii) {
+                this.id = id
+                this.nazwa = nazwa
+                this.model = model
+                this.rok_produkcji = rok_produkcji
+                this.cena = cena
+                this.zuzycieEnergii = zuzycieEnergii
+            }
+        }
+
+        class ListaTowarow {
+            Lista = []
+            wypiszProdukt(idProduktu) {
+                for (let i = 0; i < this.Lista.length; i++)
+                    if (this.Lista[i].id == idProduktu)
+                        console.log(this.Lista[i])
+            }
+            wypiszWszystkieProdukty() {
+                for (let i = 0; i < this.Lista.length; i++) {
+                    console.log(this.Lista[i])
+                }
+            }
+            dodajProdukt(produkt) {
+                for (let i = 0; i < this.Lista.length; i++)
+                    if (this.Lista[i].id == produkt.id) {
+                        console.error("produkt o tym id już jest na liście")
+                        break
+                    }
+                this.Lista.push(produkt)
+            }
+            zmienProdukt(idProduktu, produkt) {
+                for (let i = 0; i < this.Lista.length; i++)
+                    this.Lista[i] = produkt
+            }
+        }
+
+        class Magazyn extends ListaTowarow {
+            stan = []
+            Lista = []
+            dodajProduktyIlosc(produkt, ilosc) {
+                for (let i = 0; i < this.Lista.length; i++)
+                    if (this.Lista[i].id == produkt.id) {
+                        this.stan[i] += ilosc
+                        return
+                    }
+                this.Lista.push(produkt)
+                this.stan[this.Lista.length-1] = ilosc
+            }
+            zabracProdukt(id, ilosc) {
+                for (let i = 0; i < this.Lista.length; i++) {
+                    if (this.Lista[i].id == id) {
+                        if (this.stan[i] >= ilosc) {
+                            this.stan[i] -= ilosc
+                            return this.Lista[i]
+                        } else { console.error("Niema takiej ilosci") }
+                        return
+                    }
+                }
+            }
+            dodajProdukt(produkt) { super.dodajProdukt(produkt) }
+            zmienProdukt(idProduktu, produkt) { super.zmienProdukt(idProduktu, produkt) }
+            wypiszWszystkieProdukty() { super.wypiszWszystkieProdukty() }
+            wypiszProdukt(idProduktu) { super.wypiszProdukt(idProduktu) }
+        }
+
+        class Sklep extends ListaTowarow {
+            Lista = []
+            dodajProduktParametry(nazwa, model, rok_produkcji, cena, zuzycieEnergii) {
+                super.dodajProdukt(new Produkt(this.Lista.length, nazwa, model, rok_produkcji, cena, zuzycieEnergii))
+            }
+            dodajProduktZid(idProduktu, nazwa, model, rok_produkcji, cena, zuzycieEnergii) {
+                super.dodajProdukt(new Produkt(idProduktu, nazwa, model, rok_produkcji, cena, zuzycieEnergii))
+            }
+            dodajProdukt(produkt) { super.dodajProdukt(produkt) }
+            zmienProdukt(idProduktu, produkt) { super.zmienProdukt(idProduktu, produkt) }
+            wypiszWszystkieProdukty() { super.wypiszWszystkieProdukty() }
+            wypiszProdukt(idProduktu) { super.wypiszProdukt(idProduktu) }
+        }
+
+        class Zamowienie {
+            ListaId = []
+            ListaIlosc = []
+            dodajProduct(id, ilosc) {
+                this.ListaId.push(id)
+                this.ListaIlosc.push(ilosc)
+            }
+            zrealizujZamowienie(Magazyn) {
+                for (let i = 0; i < this.ListaId.length; i++)
+                    Magazyn.zabracProdukt(this.ListaId[i], this.ListaIlosc[i])
+            }
+        }
+    </script>
+    <footer style="background-color: blueviolet;">Balyka Ihar 107837</footer>
+</body>
+
+</html>
