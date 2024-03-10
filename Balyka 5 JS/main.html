@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl" style="background-color: rgba(0, 0, 0, 0.164);">
+
+<head>
+    <meta charset="utf-8">
+    <title>2B</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <header style="background-color: rgb(255, 255, 255);">
+        <h1>2B - Balyka Blog</h1>
+    </header>
+    <section style="background-color: rgb(255, 255, 255);">
+        <nav class="menu" style="background-color: crimson;">
+            <ul>
+                <li><a href="http://wi.pb.edu.pl/">Politechnika</a></li>
+                <li><a href="http://stopgame.ru/">Stopgame</a></li>
+                <li><a href="http://cez2.pb.edu.pl">CEZ2</a></li>
+                <li><a href="http://youtube.com/">Youtube</a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <section id="main_section">
+                <article>
+                    <input type="button" value="Zadanie 1" onclick="zad1();">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 2" onclick="zad2()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 3" onclick="zad3()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 4" onclick="zad4()">
+                </article>
+                <article>
+                    <input type="button" value="Zadanie 5" onclick="zad5()">
+                </article>
+                <input type=”text” id="nowy_naglowek">
+                <input type=”text” id="nowy_tekst">
+                <article>
+                    <input type="button" value="Zadanie 6" onclick="zad6()">
+                </article>
+                <article>
+                    <input type="button" value="WORK BUTTON" onclick="magic()">
+                </article>
+                <article class="naglowek">paragraf 1</article>
+                <p>Element pierwszy</p>
+                <article class="naglowek">paragraf 2</article>
+                <p>Element drugi</p>
+                <article class="naglowek">paragraf 3</article>
+                <p>Element trzeci</p>
+            </section>
+        </div>
+    </section>
+    <script>
+        lista = document.getElementsByTagName("p")
+        const lista_kolorow = ["red", "orange", "green", "blue", "blueviolet", "DarkOrchid", "DeepPink", "Gold", "MidnightBlue", "MediumPurple"]
+        lista_naglowkow = document.getElementsByClassName("naglowek")
+        const main_section = document.getElementById("main_section")
+        nowy_naglowek = document.getElementById("nowy_naglowek")
+        nowy_tekst = document.getElementById("nowy_tekst")
+        function zad1() {
+            for (let i = 0; i < lista.length; i++) {
+                lista[i].style.color = lista_kolorow[Math.floor(Math.random() * 10)]
+                console.log(lista[i].getAttribute("style"))
+            }
+        }
+        function zad2() {
+            for (let i = 0; i < lista.length; i++) {
+                lista[i].title = lista[i].innerHTML.length
+                console.log(lista[i].getAttribute("title"))
+            }
+        }
+        function zad3() {
+            for (let i = 0; i < lista.length; i++) {
+                lista[i].id = "numer " + i
+                lista[i].setAttribute("onclick", "zad3_1(" + i + ")")
+                console.log(lista[i].getAttribute("id"))
+                console.log(lista[i].getAttribute("onclick"))
+            }
+        }
+        function zad3_1(x) {
+            for (let i = 0; i < lista.length; i++) {
+                lista[i].setAttribute("style", lista[i].getAttribute("style") + "; background-color: white")
+            }
+            if (lista[x + 1] != undefined) lista[x + 1].style.background = "blue"
+            if (lista[x - 1] != undefined) lista[x - 1].style.background = "orange"
+            if (x % 2 == 0) lista[x].style.background = "darkgrey"
+            if (x % 2 == 1) lista[x].style.background = "lightgrey"
+            console.log(x)
+        }
+        async function zad4() {
+            magic()
+            console.log("PARTY MODE ON")
+            for (let j = 0; j < 1000; j++) {
+                for (let i = 0; i < lista.length; i++) {
+                    lista[i].style.color = lista_kolorow[Math.floor(Math.random() * 10)]
+                    lista[i].style.background = lista_kolorow[Math.floor(Math.random() * 10)]
+                    lista_naglowkow[i].style.color = lista_kolorow[Math.floor(Math.random() * 10)]
+                    lista_naglowkow[i].style.background = lista_kolorow[Math.floor(Math.random() * 10)]
+                }
+                if (j % 100 == 0)
+                console.log(10-j/100)
+                await new Promise(r => setTimeout(r, 100));
+            }
+            for (let i = 0; i < lista.length; i++) {
+                lista[i].style.color = "black"
+                lista[i].style.background = "white"
+                lista_naglowkow[i].style.color = "black"
+                lista_naglowkow[i].style.background = "white"
+            }
+            console.log("PARTY MODE OFF")
+        }
+        function zad5() {
+            for (let i = 0; i < lista_naglowkow.length; i++) {
+                lista_naglowkow[i] = lista_naglowkow[i].setAttribute("onclick", "zad5_1(" + i + ")")
+            }
+        }
+        function zad5_1(x) {
+            if (lista[x].hidden) lista[x].hidden = false
+            else lista[x].hidden = true
+        }
+        function zad6() {
+            let nowy = document.createElement("ARTICLE")
+            nowy.setAttribute("class", "naglowek")
+            nowy.innerHTML = nowy_naglowek.value;
+            main_section.appendChild(nowy)
+            nowy = document.createElement("P")
+            nowy.innerHTML = nowy_tekst.value
+            main_section.appendChild(nowy)
+            lista = document.getElementsByTagName("p")
+            lista_naglowkow = document.getElementsByClassName("naglowek")
+            magic()
+        }
+        function magic() {
+            zad2()
+            zad3()
+            zad5()
+        }
+    </script>
+    <footer style="background-color: blueviolet;">Balyka Ihar 107837</footer>
+</body>
+
+</html>
